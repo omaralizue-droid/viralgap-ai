@@ -1,0 +1,6 @@
+{
+  "name": "ViralGap AI",
+  "description": "SaaS that helps YouTube creators discover content gaps, analyze viral videos, and generate ideas, scripts, and thumbnail prompts using Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

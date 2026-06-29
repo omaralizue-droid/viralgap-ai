@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ==========================================
+   PREMIUM DARK THEME & LINEAR/VERCEL TOKENS
+   ========================================== */
+
+:root {
+  --color-primary: #ffffff;
+  --color-primary-glow: rgba(255, 255, 255, 0.04);
+  --color-secondary: #040405; /* Pitch Black */
+  --color-surface: #0a0a0c; /* Zinc-950 dark */
+  --color-card: #0f0f12; /* Zinc-900 dark card */
+  --color-accent: #6366f1; /* Linear Purple/Indigo */
+  --color-brand: #f43f5e; /* Premium Rose-Crimson highlight */
+  --color-success: #10b981; /* Emerald green */
+  --color-warning: #f59e0b; /* Amber warning */
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-glow: rgba(99, 102, 241, 0.15);
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  color-scheme: dark;
+}
+
+/* Force dark background and white text globally across the whole workspace */
+#app_workspace {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-text-primary) !important;
+  font-family: var(--font-sans);
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.035) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(244, 63, 94, 0.025) 0%, transparent 60%) !important;
+  background-attachment: fixed !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em !important;
+}
+
+/* ==========================================
+   UTILITY COLOR CLASS MAPS (FOR DARK MODE FIRST)
+   ========================================== */
+
+/* Main Background overrides */
+.bg-\[\#070b14\],
+.bg-\[\#090e18\] {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Secondary Surface / Sidebars */
+.bg-\[\#0c101d\] {
+  background-color: var(--color-surface) !important;
+  border-right: 1px solid var(--color-border) !important;
+}
+
+/* Semi-transparent surface (Glassmorphism overlays) */
+.bg-\[\#0c101d\]\/50,
+.bg-\[\#070b14\]\/85 {
+  background-color: rgba(10, 10, 12, 0.8) !important;
+  backdrop-filter: blur(12px) saturate(190%) !important;
+}
+
+/* Cards & Elevated Containers */
+.bg-\[\#0e1424\],
+.bg-\[\#080c16\],
+.bg-slate-950 {
+  background-color: var(--color-card) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Card hover glow states */
+.bg-\[\#0e1424\]:hover,
+.bg-\[\#080c16\]:hover,
+.bg-slate-950:hover {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.5), 
+    0 0 0 1px rgba(255, 255, 255, 0.02) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Card hover glow states for grid surface cards as well */
+.grid > .bg-\[\#0c101d\],
+#recent_activity_section {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.grid > .bg-\[\#0c101d\]:hover,
+#recent_activity_section:hover {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.5), 
+    0 0 0 1px rgba(255, 255, 255, 0.02) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* General slate utility maps to maintain harmony */
+.bg-slate-900 {
+  background-color: rgba(10, 10, 12, 0.95) !important;
+}
+
+.bg-slate-800 {
+  background-color: rgba(16, 16, 20, 0.95) !important;
+}
+
+.bg-slate-700 {
+  background-color: rgba(24, 24, 28, 0.95) !important;
+}
+
+/* Selection overrides */
+::selection {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+/* Standard text overrides to contrast with the dark theme */
+.text-slate-100 {
+  color: var(--color-text-primary) !important;
+}
+
+.text-slate-200 {
+  color: #e4e4e7 !important; /* Zinc-200 */
+}
+
+.text-slate-300 {
+  color: #d4d4d8 !important; /* Zinc-300 */
+}
+
+.text-slate-400 {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-slate-500 {
+  color: #52525b !important; /* Zinc-600 */
+}
+
+.text-slate-600 {
+  color: #3f3f46 !important; /* Zinc-700 */
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+/* Handle input text inside overrides */
+input::placeholder, textarea::placeholder {
+  color: #52525b !important;
+}
+
+/* Border overrides - clean modern dark lines */
+.border-slate-900,
+.border-slate-800,
+.border-slate-850,
+.border-slate-700 {
+  border-color: var(--color-border) !important;
+}
+
+/* ==========================================
+   INPUTS & FORM DESIGN
+   ========================================== */
+input, select, textarea {
+  background-color: #060608 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  color: #f4f4f5 !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: #060608 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ==========================================
+   SEMANTIC HIGHLIGHTS REDIRECTION
+   ========================================== */
+
+/* Green Highlight: keep standard emerald text, map to positive emerald */
+.text-emerald-400,
+.text-emerald-500,
+.text-emerald-300 {
+  color: var(--color-success) !important;
+}
+
+.bg-emerald-500,
+.bg-emerald-600,
+.bg-emerald-400 {
+  background-color: var(--color-success) !important;
+  color: #040405 !important;
+}
+
+.bg-emerald-500\/10 {
+  background-color: rgba(16, 185, 129, 0.09) !important;
+}
+
+.bg-emerald-500\/20 {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+}
+
+.bg-emerald-950\/90 {
+  background-color: rgba(6, 30, 20, 0.95) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+  color: #10b981 !important;
+}
+
+.border-emerald-500,
+.border-emerald-500\/10,
+.border-emerald-500\/20,
+.border-emerald-500\/40 {
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Rose/Red color maps (Brand High-Fidelity highlight) */
+.text-rose-300,
+.text-rose-400 {
+  color: var(--color-brand) !important;
+}
+
+.bg-rose-500\/10 {
+  background-color: rgba(244, 63, 94, 0.08) !important;
+}
+
+.bg-rose-500\/20 {
+  background-color: rgba(244, 63, 94, 0.18) !important;
+}
+
+.bg-rose-950\/90 {
+  background-color: rgba(30, 6, 12, 0.95) !important;
+  border-color: rgba(244, 63, 94, 0.25) !important;
+  color: #f43f5e !important;
+}
+
+/* Purple/Accent highlight */
+.accent-purple-glow {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* ==========================================
+   HOVER ACTIONS & BUTTON REDESIGNS
+   ========================================== */
+
+/* Hover state background enhancements */
+.hover\:bg-slate-900\/60:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+}
+
+.hover\:bg-slate-900:hover,
+.hover\:bg-slate-800:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+
+.hover\:text-slate-200:hover,
+.hover\:text-slate-100:hover,
+.hover\:text-white:hover {
+  color: #ffffff !important;
+}
+
+/* Modern Vercel/Stripe Buttons */
+button, 
+.btn-primary {
+  transition: all 0.15s ease !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Primary Button Styling (Monochrome White Button like Vercel) */
+button.bg-emerald-500,
+button.bg-rose-500,
+button.bg-red-500 {
+  background: #fafafa !important;
+  color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+  font-weight: 600 !important;
+}
+
+button.bg-emerald-500:hover,
+button.bg-rose-500:hover,
+button.bg-red-500:hover {
+  transform: none !important;
+  background: #f4f4f5 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+button.bg-emerald-500:active,
+button.bg-rose-500:active,
+button.bg-red-500:active {
+  background: #e4e4e7 !important;
+}
+
+/* Secondary Buttons */
+button.bg-\[\#0c101d\],
+button.bg-\[\#070b14\] {
+  background-color: #0e0e11 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #a1a1aa !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+button.bg-\[\#0c101d\]:hover,
+button.bg-\[\#070b14\]:hover {
+  background-color: #121216 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f4f4f5 !important;
+}
+
+/* ==========================================
+   CHARTS & DATA VISUALIZATION
+   ========================================== */
+
+/* Overrides for chart grid lines */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.04) !important;
+  stroke-dasharray: 5 5 !important;
+}
+
+/* Chart text labels */
+.recharts-text {
+  fill: var(--color-text-secondary) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 10px !important;
+}
+
+/* Tooltip container styling */
+.recharts-default-tooltip {
+  background-color: #0c0c0e !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+  color: #ffffff !important;
+}
+
+.recharts-tooltip-item {
+  color: #ffffff !important;
+}
+
+.recharts-tooltip-cursor {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Line Graph Colors (Premium purple/crimson) */
+.recharts-line:nth-child(1) .recharts-line-path {
+  stroke: var(--color-accent) !important;
+  stroke-width: 2.5px !important;
+}
+
+.recharts-line:nth-child(2) .recharts-line-path {
+  stroke: var(--color-brand) !important;
+  stroke-width: 2.5px !important;
+}
+
+.recharts-line:nth-child(3) .recharts-line-path {
+  stroke: var(--color-text-secondary) !important;
+  stroke-width: 2px !important;
+}
+
+.recharts-bar-rectangle:nth-child(1) path {
+  fill: var(--color-accent) !important;
+}
+
+.recharts-bar-rectangle:nth-child(2) path {
+  fill: var(--color-brand) !important;
+}
+
+/* Dynamic SVG strokes and colors mappings */
+circle[stroke="#10b981"],
+path[stroke="#10b981"],
+svg[stroke="#10b981"] {
+  stroke: var(--color-success) !important;
+}
+
+svg[fill="#10b981"],
+circle[fill="#10b981"],
+path[fill="#10b981"] {
+  fill: var(--color-success) !important;
+}
+
+/* ==========================================
+   SCROLLBAR STYLES (MINIMAL DARK STYLE)
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
