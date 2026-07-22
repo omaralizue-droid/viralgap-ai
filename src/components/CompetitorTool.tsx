@@ -186,7 +186,8 @@ export default function CompetitorTool({ userId, addToast }: CompetitorToolProps
 
     try {
       const response = await fetch(`/api/competitor/reports/${reportId}?userId=${userId || 'usr_default_omar'}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
       });
 
       const data = await response.json();

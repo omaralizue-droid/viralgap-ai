@@ -191,7 +191,10 @@ export function FounderDashboardTab({ userId }: FounderDashboardTabProps) {
     }
     try {
       setLoading(true);
-      const res = await fetch('/api/analytics/clear', { method: 'POST' });
+      const res = await fetch('/api/analytics/clear', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+      });
       const data = await res.json();
       if (data.success) {
         await fetchMetrics();

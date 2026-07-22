@@ -72,6 +72,9 @@ app.get('/sitemap.xml', (req, res) => {
   <url><loc>https://viralgap.ai/tools/thumbnail-generator</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://viralgap.ai/tools/hook-generator</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://viralgap.ai/tools/script-generator</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://viralgap.ai/tools/comment-intelligence-lab</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://viralgap.ai/tools/retention-hook-simulator</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://viralgap.ai/tools/title-ab-battle-arena</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
 </urlset>`);
 });
 

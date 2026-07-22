@@ -399,8 +399,8 @@ export const db = {
   },
 
   async incrementUsage(userId: string, amount: number): Promise<UsageTracking> {
-    const data = await readDb();
     const usage = await this.getUsage(userId);
+    const data = await readDb();
     const matched = data.usage_tracking.find(u => u.id === usage.id);
     if (matched) {
       matched.credits_used += amount;
@@ -413,8 +413,8 @@ export const db = {
   },
 
   async resetUsageCredits(userId: string): Promise<UsageTracking> {
-    const data = await readDb();
     const usage = await this.getUsage(userId);
+    const data = await readDb();
     const matched = data.usage_tracking.find(u => u.id === usage.id);
     if (matched) {
       matched.credits_used = 0;

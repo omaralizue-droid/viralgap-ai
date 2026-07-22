@@ -177,7 +177,8 @@ export default function OpportunityAlertsTab({
   const handleDeleteConfig = async (id: string) => {
     try {
       const res = await fetch(`/api/opportunity/configs/${id}?userId=usr_default_omar`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
       });
       const data = await res.json();
       if (data.success) {

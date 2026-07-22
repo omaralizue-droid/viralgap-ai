@@ -97,6 +97,9 @@ const VideoGeneratorTool = React.lazy(() => import('./components/VideoGeneratorT
 const ViralPredictorTool = React.lazy(() => import('./components/ViralPredictorTool'));
 const CreatorCopilotTool = React.lazy(() => import('./components/CreatorCopilotTool'));
 const CompetitorTool = React.lazy(() => import('./components/CompetitorTool'));
+const CommentIntelligenceLab = React.lazy(() => import('./components/CommentIntelligenceLab'));
+const RetentionHookSimulator = React.lazy(() => import('./components/RetentionHookSimulator'));
+const TitleABBattleArena = React.lazy(() => import('./components/TitleABBattleArena'));
 
 // Premium shimmer loading state
 function TabLoader() {
@@ -160,7 +163,7 @@ export default function App() {
 
   // Active workspace tab
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'content-gap' | 'opportunity-scanner' | 'url-analyzer' | 'script-generator' | 'content-calendar' | 'trends' | 'prompts' | 'video-prompts' | 'viral-predictor' | 'creator-copilot' | 'competitor-watch' | 'opportunity-alerts' | 'profile' | 'architecture' | 'billing' | 'settings' | 'devops-console' | 'founder-dashboard'
+    'dashboard' | 'content-gap' | 'opportunity-scanner' | 'url-analyzer' | 'script-generator' | 'content-calendar' | 'trends' | 'prompts' | 'video-prompts' | 'viral-predictor' | 'creator-copilot' | 'competitor-watch' | 'opportunity-alerts' | 'comment-intelligence' | 'retention-hook' | 'title-battle' | 'profile' | 'architecture' | 'billing' | 'settings' | 'devops-console' | 'founder-dashboard'
   >('dashboard');
 
   // Sidebar collapsible state and global search/command palette
@@ -1362,6 +1365,27 @@ export default function App() {
             { id: 'creator-copilot', label: 'AI Creator Coach', icon: Award, iconColor: 'text-emerald-400' },
             { id: 'competitor-watch', label: 'Competitor Watch', icon: Eye, iconColor: 'text-emerald-400' },
             { 
+              id: 'comment-intelligence', 
+              label: 'AI Comment Intel Lab', 
+              icon: MessageSquare, 
+              iconColor: 'text-purple-400',
+              badge: 'NEW'
+            },
+            { 
+              id: 'retention-hook', 
+              label: 'AI Retention Simulator', 
+              icon: Activity, 
+              iconColor: 'text-cyan-400',
+              badge: 'NEW'
+            },
+            { 
+              id: 'title-battle', 
+              label: 'Title A/B Battle Arena', 
+              icon: Zap, 
+              iconColor: 'text-amber-400',
+              badge: 'NEW'
+            },
+            { 
               id: 'opportunity-alerts', 
               label: 'Opportunity Alerts', 
               icon: Bell, 
@@ -1820,6 +1844,33 @@ export default function App() {
           <CompetitorTool 
             userId={auth.user?.id || 'usr_default_omar'} 
             addToast={addToast} 
+          />
+        )}
+
+        {activeTab === 'comment-intelligence' && (
+          <CommentIntelligenceLab 
+            userId={auth.user?.id || 'usr_default_omar'} 
+            onUseCredits={requestCreditUsage}
+            addToast={addToast} 
+            handleCopy={handleCopy} 
+          />
+        )}
+
+        {activeTab === 'retention-hook' && (
+          <RetentionHookSimulator 
+            userId={auth.user?.id || 'usr_default_omar'} 
+            onUseCredits={requestCreditUsage}
+            addToast={addToast} 
+            handleCopy={handleCopy} 
+          />
+        )}
+
+        {activeTab === 'title-battle' && (
+          <TitleABBattleArena 
+            userId={auth.user?.id || 'usr_default_omar'} 
+            onUseCredits={requestCreditUsage}
+            addToast={addToast} 
+            handleCopy={handleCopy} 
           />
         )}
 

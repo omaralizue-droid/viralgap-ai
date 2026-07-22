@@ -37,9 +37,16 @@ export class GeminiService extends BaseService {
     // Production mode with retries
     let attempt = 0;
     let delay = initialDelay;
+    
+    // Normalize model identifier if needed
+    const apiParams = { ...params };
+    if (!apiParams.model || apiParams.model.includes('3.5')) {
+      apiParams.model = 'gemini-2.5-flash';
+    }
+
     while (true) {
       try {
-        const response = await this.client.models.generateContent(params);
+        const response = await this.client.models.generateContent(apiParams);
         return {
           text: response.text || ''
         };

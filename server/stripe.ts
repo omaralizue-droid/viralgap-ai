@@ -275,7 +275,7 @@ router.post('/api/stripe/webhook', async (req: Request, res: Response) => {
   try {
     // Note: req.body MUST be the raw buffer here
     event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
-    await await db.addSystemLog({
+    await db.addSystemLog({
       level: 'info',
       category: 'stripe',
       message: `Stripe webhook received: ${event.type}`,
@@ -427,7 +427,7 @@ async function handleStripeEvent(event: any) {
         current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         updated_at: new Date().toISOString()
       };
-      await await await await db.saveSubscription(sub);
+      await db.saveSubscription(sub);
 
       // 2. Update Database usage_tracking table
       await db.resetUsageCredits(userId);
@@ -473,7 +473,7 @@ async function handleStripeEvent(event: any) {
         sub.status = 'active';
         sub.current_period_start = new Date().toISOString();
         sub.current_period_end = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-        db.saveSubscription(sub);
+        await db.saveSubscription(sub);
 
         // Reset usage credits for the new billing cycle period
         await db.resetUsageCredits(sub.user_id);
@@ -503,7 +503,7 @@ async function handleStripeEvent(event: any) {
       if (sub) {
         // Set subscription state to past due to lock premium tools
         sub.status = 'past_due';
-        db.saveSubscription(sub);
+        await db.saveSubscription(sub);
       }
       break;
     }
@@ -519,10 +519,10 @@ async function handleStripeEvent(event: any) {
         sub.status = subscription.status === 'active' ? 'active' : 'trialing';
         sub.current_period_start = new Date(subscription.current_period_start * 1000).toISOString();
         sub.current_period_end = new Date(subscription.current_period_end * 1000).toISOString();
-        db.saveSubscription(sub);
+        await db.saveSubscription(sub);
 
         // Re-align credits limits in usage table
-        await await db.getUsage(sub.user_id);
+        await db.getUsage(sub.user_id);
       }
       break;
     }
@@ -546,7 +546,7 @@ async function handleStripeEvent(event: any) {
         await db.saveSubscription(demotedSub);
 
         // Re-align usage tracking counts
-        db.getUsage(sub.user_id);
+        await db.getUsage(sub.user_id);
 
         // Track subscription_canceled in analytics
         try {

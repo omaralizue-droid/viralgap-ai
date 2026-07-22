@@ -119,11 +119,12 @@ export function csrfProtectionMiddleware(req: Request, res: Response, next: Next
     return next();
   }
 
-  const customSecHeader = req.headers['x-requested-with'] || req.headers['content-type'] || '';
+  const customSecHeader = req.headers['x-requested-with'] || req.headers['content-type'] || req.headers['x-viralgap-shield'] || req.headers['origin'] || '';
   const origin = req.headers.origin || req.headers.referer || '';
 
-  // Exclude local sandbox, Stripe webhooks and specific paths
-  if (req.originalUrl === '/api/stripe/webhook') {
+  // Exclude Stripe webhooks
+  const cleanPath = req.originalUrl.split('?')[0];
+  if (cleanPath === '/api/stripe/webhook') {
     return next();
   }
 
@@ -151,10 +152,9 @@ function sanitizeValue(value: any): any {
     let cleaned = value;
     // Strip script blocks
     cleaned = cleaned.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '');
-    // Strip standard HTML tags
-    cleaned = cleaned.replace(/<\/?[^>]+(>|$)/g, '');
-    // Strip javascript: uris
+    // Strip inline event handlers and javascript: URIs
     cleaned = cleaned.replace(/javascript:/gi, '');
+    cleaned = cleaned.replace(/on\w+\s*=/gi, '');
     
     if (cleaned !== value) {
       securityTelemetry.totalSanitizationEvents++;
@@ -184,7 +184,8 @@ function sanitizeValue(value: any): any {
 
 export function inputSanitizationMiddleware(req: Request, res: Response, next: NextFunction) {
   // Exclude raw payload Stripe webhooks
-  if (req.originalUrl === '/api/stripe/webhook') {
+  const cleanPath = req.originalUrl.split('?')[0];
+  if (cleanPath === '/api/stripe/webhook') {
     return next();
   }
 

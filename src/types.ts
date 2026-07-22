@@ -185,4 +185,70 @@ export interface SystemLog {
   metadata?: any;
 }
 
+// === BREAKTHROUGH AI FEATURES ===
+
+export interface CommentIntelligenceResult {
+  videoTitle: string;
+  channelName: string;
+  totalCommentsAnalyzed: number;
+  overallSentiment: { positive: number; neutral: number; negative: number };
+  topPraiseThemes: { theme: string; count: number; sentiment: string }[];
+  topComplaints: { complaint: string; count: number; severity: 'low' | 'medium' | 'high' }[];
+  contentRequests: { request: string; demandScore: number; audience: string }[];
+  audiencePainPoints: { painPoint: string; frequency: string; opportunityAngle: string }[];
+  viralContentIdeas: { idea: string; whyItWorks: string; estimatedInterest: string }[];
+  emotionalTriggers: { trigger: string; emotion: string; intensity: 'low' | 'medium' | 'high' }[];
+  keyQuotes: { quote: string; author: string; sentiment: string }[];
+  actionableInsights: string[];
+}
+
+export interface RetentionHookResult {
+  scriptTitle: string;
+  overallRetentionScore: number;
+  predictedAvgRetention: number;
+  hookStrength: number;
+  sections: {
+    sectionName: string;
+    timestamp: string;
+    retentionPrediction: number;
+    dropRisk: 'low' | 'medium' | 'high' | 'critical';
+    hookSuggestion: string;
+    engagementTactic: string;
+  }[];
+  criticalDropPoints: {
+    location: string;
+    reason: string;
+    fix: string;
+    impactScore: number;
+  }[];
+  winningHooks: {
+    hookType: string;
+    example: string;
+    effectivenessScore: number;
+  }[];
+  overallTips: string[];
+}
+
+export interface TitleABTestResult {
+  titles: {
+    title: string;
+    ctrScore: number;
+    emotionalImpact: number;
+    curiosityGap: number;
+    clarityScore: number;
+    urgencyScore: number;
+    overallScore: number;
+    psychologyBreakdown: string;
+    improvementTips: string[];
+    rank: number;
+  }[];
+  winner: {
+    title: string;
+    reason: string;
+    confidenceLevel: number;
+  };
+  audiencePsychProfile: string;
+  bestPostingTime: string;
+}
+
 
